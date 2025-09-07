@@ -161,10 +161,6 @@ By working with this project, i understand:
 - Business insights generation
 - Production model deployment
 
-## 📝 License
-
-This project is open source and available for educational and commercial use.
-
 ---
 
 **Happy Forecasting! 📈**
