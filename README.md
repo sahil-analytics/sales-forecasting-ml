@@ -25,7 +25,7 @@ This project implements a complete end-to-end sales forecasting pipeline that:
 ## 🖼Dashboard Preview
 Here is a screenshot of the Sales Forecasting Dashboard:
 
-![Dashboard Preview](https://github.com/sahil-analytics/big-data-analysis-pyspark/blob/main/screenshots/1_terminal_output_results.png)
+![Dashboard Preview](https://github.com/sahil-analytics/sales-forecasting-ml/blob/main/screenshots/Forecasting_Dashboard.png)
 
 ###  Console Output
 
