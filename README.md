@@ -22,146 +22,78 @@ This project implements a complete end-to-end sales forecasting pipeline that:
 - **Business Insights**: Provides actionable recommendations based on patterns
 - **Model Persistence**: Saves trained models for production deployment
 
-## 📋 Prerequisites
+## 🖼Dashboard Preview
+Here is a screenshot of the Sales Forecasting Dashboard:
 
-- Python 3.8 or higher
-- pip package manager
-- 2GB RAM minimum
-- 500MB free disk space
+![Dashboard Preview](https://github.com/sahil-analytics/big-data-analysis-pyspark/blob/main/screenshots/1_terminal_output_results.png)
 
-## 🛠️ Installation
-
-### Step 1: Clone or Download the Project
-
-```bash
-# Create a new directory for the project
-mkdir sales-forecasting-project
-cd sales-forecasting-project
-
-# Save the main Python file as sales_forecaster.py
-```
-
-### Step 2: Create Virtual Environment (Recommended)
-
-```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# macOS/Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### Step 3: Install Required Packages
-
-```bash
-pip install -r requirements.txt
-```
-
-Or install packages individually:
-
-```bash
-pip install pandas numpy scikit-learn matplotlib seaborn joblib
-```
-
-## 🏃‍♂️ How to Run
-
-### Quick Start (Basic Usage)
-
-```bash
-python sales_forecaster.py
-```
-
-This will:
-1. Generate synthetic sales data
-2. Perform complete analysis
-3. Train all models
-4. Generate visualizations
-5. Create future predictions
-6. Save the best model
-
-### Advanced Usage (Custom Data)
-
-```python
-from sales_forecaster import SalesForecaster
-
-# Initialize with your own data
-forecaster = SalesForecaster()
-
-# Load your CSV file
-forecaster.load_data('your_sales_data.csv')
-
-# Run the complete pipeline
-forecaster.explore_data()
-forecaster.prepare_features()
-forecaster.split_data()
-forecaster.train_models()
-forecaster.hyperparameter_tuning()
-forecaster.make_future_predictions(periods=60)
-forecaster.save_model('custom_model.pkl')
-```
-
-### Using in Jupyter Notebook
-
-```python
-# Run in cells
-%matplotlib inline
-from sales_forecaster import SalesForecaster
-
-# Create instance
-forecaster = SalesForecaster()
-
-# Generate sample data
-df = forecaster.generate_sample_data(n_samples=1000)
-
-# Explore data
-forecaster.explore_data()
-
-# Continue with other steps...
-```
-
-## 📊 Expected Output
-
-The project generates:
-
-1. **Console Output**: Detailed analysis results and metrics
-2. **Visualizations**: 
-   - Sales distribution and trends
-   - Feature correlations
-   - Model performance comparisons
-   - Prediction vs actual plots
-   - Future forecast charts
-3. **Saved Files**:
-   - `best_sales_model.pkl` - Trained model
-   - `best_sales_model_scaler.pkl` - Data scaler
-   - `best_sales_model_features.pkl` - Feature names
-
-### Sample Console Output
+###  Console Output
 
 ```
-===========================================================
+============================================================
 SALES FORECASTING WITH PREDICTIVE ANALYTICS
-===========================================================
+============================================================
 Starting analysis pipeline...
 
+
 [Step 1/9] Loading Data...
+No file path provided. Generating sample data...
 ✓ Generated 1000 samples of synthetic sales data
 
 [Step 2/9] Exploring Data...
-Dataset Shape: (1000, 13)
-...
 
-[Step 5/9] Training Models...
-Training Linear Regression...
-  Test MAE: 156.32
-  Test RMSE: 198.45
-  Test R²: 0.8234
+============================================================
+EXPLORATORY DATA ANALYSIS
+============================================================
 
-Training Random Forest...
-  Test MAE: 142.18
-  Test RMSE: 181.92
-  Test R²: 0.8512
+Dataset Shape: (1000, 14)
+
+Column Types:
+date                 datetime64[ns]
+day_of_week                   int64
+month                         int64
+quarter                       int64
+year                          int64
+is_weekend                    int64
+temperature                 float64
+humidity                    float64
+advertising_spend           float64
+competitor_price            float64
+product_category             object
+promotion_type               object
+store_location               object
+sales                       float64
+dtype: object
+
+Missing Values:
+date                 0
+day_of_week          0
+month                0
+quarter              0
+year                 0
+is_weekend           0
+temperature          0
+humidity             0
+advertising_spend    0
+competitor_price     0
+product_category     0
+promotion_type       0
+store_location       0
+sales                0
+dtype: int64
+
+Statistical Summary:
+                      date  day_of_week  ...  competitor_price        sales
+count                 1000  1000.000000  ...       1000.000000  1000.000000
+mean   2023-05-15 12:00:00     2.999000  ...        123.985545  1571.986445
+min    2022-01-01 00:00:00     0.000000  ...         50.004608   860.172298
+25%    2022-09-07 18:00:00     1.000000  ...         87.263181  1377.061284
+50%    2023-05-15 12:00:00     3.000000  ...        123.426275  1568.333528
+75%    2024-01-20 06:00:00     5.000000  ...        160.175858  1763.138102
+max    2024-09-26 00:00:00     6.000000  ...        199.933655  2333.350820
+std                    NaN     2.001751  ...         42.853124   262.736107
+
+[8 rows x 11 columns]
 ...
 
 ✓ Best Model: Random Forest
@@ -171,66 +103,6 @@ Training Random Forest...
 Mean Absolute Error: $142.18
 Forecast Accuracy: 92.34%
 ```
-
-## 📁 Data Format
-
-If using custom data, your CSV should have these columns:
-
-```csv
-date,sales,temperature,humidity,advertising_spend,competitor_price,product_category,promotion_type,store_location
-2024-01-01,1500.00,20.5,65,1000,99.99,Electronics,Discount,Urban
-2024-01-02,1620.00,21.0,62,1200,95.99,Clothing,None,Suburban
-...
-```
-
-Required columns:
-- `date`: Date of sale (YYYY-MM-DD)
-- `sales`: Target variable (numeric)
-
-Optional columns for better predictions:
-- `temperature`, `humidity`: Weather data
-- `advertising_spend`: Marketing budget
-- `competitor_price`: Competitive pricing
-- `product_category`: Product type
-- `promotion_type`: Active promotions
-- `store_location`: Store location type
-
-## 🔧 Customization
-
-### Modify Feature Engineering
-
-```python
-# In prepare_features() method, add custom features:
-self.df['custom_feature'] = self.df['sales'].shift(1)  # Lag feature
-self.df['sales_growth'] = self.df['sales'].pct_change()  # Growth rate
-```
-
-### Add New Models
-
-```python
-# In train_models() method, add to models dictionary:
-from sklearn.svm import SVR
-models['SVM'] = SVR(kernel='rbf')
-```
-
-### Change Evaluation Metrics
-
-```python
-# Add custom metrics in train_models():
-from sklearn.metrics import mean_absolute_percentage_error
-mape = mean_absolute_percentage_error(self.y_test, y_pred_test)
-```
-
-## 📈 Model Performance
-
-Typical performance metrics with synthetic data:
-
-| Model | MAE | RMSE | R² Score |
-|-------|-----|------|----------|
-| Random Forest | 142.18 | 181.92 | 0.851 |
-| Gradient Boosting | 148.73 | 189.45 | 0.839 |
-| Ridge Regression | 156.32 | 198.45 | 0.823 |
-| Linear Regression | 157.01 | 199.12 | 0.822 |
 
 ## 🎯 Business Applications
 
@@ -243,45 +115,20 @@ This project can be adapted for:
 - **Seasonal Planning**: Identify and prepare for peak periods
 - **Store Performance**: Compare and optimize location performance
 
-## 🐛 Troubleshooting
-
-### Common Issues and Solutions
-
-1. **ImportError: No module named 'sklearn'**
-   ```bash
-   pip install scikit-learn
-   ```
-
-2. **ValueError: Input contains NaN**
-   - The code handles NaN values automatically
-   - Check your custom data for missing values
-
-3. **MemoryError during training**
-   - Reduce data size: `forecaster.generate_sample_data(n_samples=500)`
-   - Reduce model complexity in hyperparameter tuning
-
-4. **Matplotlib not showing plots**
-   ```python
-   import matplotlib
-   matplotlib.use('TkAgg')  # or 'Qt5Agg'
-   ```
 
 ## 📚 Project Structure
 
 ```
-sales-forecasting-project/
+sales_forecasting-ml/
 │
 ├── sales_forecaster.py      # Main project code
 ├── requirements.txt         # Package dependencies
 ├── README.md               # Documentation
 │
 ├── outputs/                # Generated after running
-│   ├── best_sales_model.pkl
-│   ├── best_sales_model_scaler.pkl
-│   └── best_sales_model_features.pkl
-│
-└── data/                   # Optional: Your custom data
-    └── sales_data.csv
+    ├── best_sales_model.pkl
+    ├── best_sales_model_scaler.pkl
+    └── best_sales_model_features.pkl
 ```
 
 ## 🔍 Key Technologies Used
@@ -304,7 +151,7 @@ sales-forecasting-project/
 
 ## 🎓 Learning Outcomes
 
-By working with this project, you'll understand:
+By working with this project, i understand:
 
 - End-to-end ML pipeline development
 - Feature engineering techniques
@@ -314,36 +161,9 @@ By working with this project, you'll understand:
 - Business insights generation
 - Production model deployment
 
-## 🤝 Contributing
-
-Feel free to enhance the project by:
-- Adding new features
-- Implementing additional models
-- Improving visualizations
-- Adding statistical tests
-- Creating API endpoints
-- Building a web interface
-
 ## 📝 License
 
 This project is open source and available for educational and commercial use.
-
-## 🙋‍♂️ Support
-
-For questions or issues:
-1. Check the troubleshooting section
-2. Review the code comments
-3. Experiment with different parameters
-4. Adapt the code to your specific needs
-
-## ✨ Next Steps
-
-1. **Deploy to Production**: Create API endpoints using Flask/FastAPI
-2. **Add Real-time Updates**: Implement online learning
-3. **Build Dashboard**: Create interactive visualizations with Plotly/Dash
-4. **Integrate Database**: Store predictions in PostgreSQL/MongoDB
-5. **Add Alert System**: Notify when predictions deviate significantly
-6. **Implement A/B Testing**: Compare model versions in production
 
 ---
 
