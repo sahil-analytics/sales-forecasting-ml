@@ -1,4 +1,4 @@
-# 🚀 Sales Forecasting with Predictive Analytics 🚀
+# 🚀 Predictive Analytics for Sales Forecasting 🚀
 
 A comprehensive machine learning project for predicting sales trends using Python, featuring multiple ML models, automated feature engineering, and business insights generation.
 
